@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
+	"strconv"
 	"strings"
 
-	"golang.org/x/oauth2"
-
 	"github.com/google/go-github/github"
+	"golang.org/x/oauth2"
 )
 
 func CreateFilterOptions() *github.IssueListOptions {
@@ -30,6 +30,26 @@ func findIssues(filterOptions *github.IssueListOptions) (issueList []*github.Iss
 	tc := oauth2.NewClient(ctx, ts)
 
 	client := github.NewClient(tc)
+	if *project != "" {
+		issues, err := getIssueURLOfProject()
+		if err != nil {
+			return nil, err
+		}
+		for _, issue := range issues {
+			splat := strings.Split(issue, "/")
+			issueNumber, err := strconv.Atoi(splat[6])
+			if err != nil {
+				return nil, err
+			}
+			issueFromGit, _, err := client.Issues.Get(ctx, *organization, splat[4], issueNumber)
+			if err != nil {
+				return nil, err
+			}
+			issueList = append(issueList, issueFromGit)
+		}
+		return issueList, nil
+	}
+
 	i := 1
 	for {
 		filterOptions.ListOptions.Page = i

@@ -11,6 +11,7 @@ var (
 	organization = flag.String("org", "", "Organization for which issues are to be searched")
 	status       = flag.String("status", "all", "Filtering based on the status of the github issue(value can be either open or closed or all)(DEFAULT:all)")
 	milestone    = flag.String("milestone", "", "Filtering based on the milestone assigned to the issues")
+	project      = flag.String("project", "", "Get the issues for a particular project")
 	labels       = flag.String("labels", "", "Filtering based on the labels marked to the issues(give comma-separated values)")
 	filename     = flag.String("name", "", "file to save the extarcted issues, if empty it will print to stdout")
 	format       = flag.String("format", "json", "Format to store after extracting issue details(json|csv|html|md)")
