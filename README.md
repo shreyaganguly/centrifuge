@@ -28,7 +28,9 @@ Usage of ./centrifuge:
   -status string
     	Filtering based on the status of the github issue(value can be either open or closed or all)(DEFAULT:all) (default "all")
   -token string
-    	Access Token of your github account, if this flag is NOT set it will read from environemnt variable GITHUB_TOKEN
+    	Access Token of your github account, if this flag is NOT set it will read from environment variable GITHUB_TOKEN
+  -project string
+  	Get the issues for a particular project  
 ```
 
 #### Start extracting!!! :)
